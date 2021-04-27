@@ -139,8 +139,9 @@ class _EditProductScreenState extends State<EditProductScreen> {
                 },
               ),
               TextFormField(
-                initialValue:
-                    '${double.parse(_initValues['price']).toStringAsFixed(2)}',
+                initialValue: _initValues['price'].length > 0
+                    ? '${double.parse(_initValues['price']).toStringAsFixed(2)}'
+                    : '',
                 decoration: InputDecoration(
                   labelText: 'Price',
                 ),
