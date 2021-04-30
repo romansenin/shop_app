@@ -59,22 +59,25 @@ class Products with ChangeNotifier {
     try {
       final response = await http.get(url);
       final extractedData = json.decode(response.body) as Map<String, dynamic>;
-      final List<Product> loadedProducts = [];
-      extractedData.forEach((prodId, prodData) {
-        loadedProducts.add(
-          Product(
-            id: prodId,
-            title: prodData['title'],
-            description: prodData['description'],
-            price: prodData['price'],
-            isFavorite: prodData['isFavorite'],
-            imageUrl: prodData['imageUrl'],
-          ),
-        );
-      });
-      _items = loadedProducts;
+      if (extractedData != null) {
+        final List<Product> loadedProducts = [];
+        extractedData.forEach((prodId, prodData) {
+          loadedProducts.add(
+            Product(
+              id: prodId,
+              title: prodData['title'],
+              description: prodData['description'],
+              price: prodData['price'],
+              isFavorite: prodData['isFavorite'],
+              imageUrl: prodData['imageUrl'],
+            ),
+          );
+        });
+        _items = loadedProducts;
+      } else {
+        _items = [];
+      }
       notifyListeners();
-      print(json.decode(response.body));
     } catch (error) {
       throw error;
     }
