@@ -92,7 +92,7 @@ class _EditProductScreenState extends State<EditProductScreen> {
 
     // if id is not null then this is an existing product
     if (_editedProduct.id != null) {
-      Provider.of<Products>(context, listen: false)
+      await Provider.of<Products>(context, listen: false)
           .updateProduct(_editedProduct.id, _editedProduct);
       Navigator.of(context).pop();
     } else {
